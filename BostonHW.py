@@ -110,7 +110,7 @@ else:
         model = RandomForestRegressor()
         model.fit(X, y)
         # Apply Model to Make Prediction
-        prediction = model.predict(df)
+        prediction = model.predict(df2)
 
         st.header('Prediction of PRICE')
         st.write(prediction)
