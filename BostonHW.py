@@ -13,16 +13,16 @@ from sklearn import datasets
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 
-df = pd.read_csv(r"https://raw.githubusercontent.com/DSML1909/BostonHWNew/main/housing.csv")
+df1 = pd.read_csv(r"https://raw.githubusercontent.com/DSML1909/BostonHWNew/main/housing.csv")
 
 section = st.sidebar.radio('Application Section', ['Data Explorer', 
                                                    'Model Explorer'])
 if section == 'Data Explorer':
     st.title('Exploratory Data Analysis')
-    st.write(df)
+    st.write(df1)
     
     #generating a heatmap to show correlation
-    correlation_matrix1 = df.corr().round(2)
+    correlation_matrix1 = df1.corr().round(2)
     # annot = True to print the values inside the square
     sns.heatmap(data=correlation_matrix1, annot=True)
     
@@ -33,7 +33,7 @@ if section == 'Data Explorer':
     chart_type = st.sidebar.selectbox('Choose Your chart type', ['Table', 'Line','Bar','Strip'])
     @st.cache
     def create_grouping(x_axis, y_axis):
-        grouping = df.groupby(x_axis)[y_axis].mean()
+        grouping = df1.groupby(x_axis)[y_axis].mean()
         return grouping
     
     grouping = create_grouping(x_axis, y_axis)
@@ -50,7 +50,7 @@ if section == 'Data Explorer':
         # make a table
         st.write(grouping)
     else:
-        st.plotly_chart(px.strip(df[[x_axis, y_axis]], x=x_axis, y=y_axis))
+        st.plotly_chart(px.strip(df1[[x_axis, y_axis]], x=x_axis, y=y_axis))
 
 else:
         st.write("""
