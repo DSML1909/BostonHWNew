@@ -62,7 +62,7 @@ else:
         # Loads the Boston House Price Dataset
         boston = datasets.load_boston()
         X = pd.DataFrame(boston.data, columns=boston.feature_names)
-        Y = pd.DataFrame(boston.target, columns=["PRICE"])
+        y = pd.DataFrame(boston.target, columns=["MEDV"])
 
         # Sidebar
         # Header of Specify Input Parameters
@@ -98,7 +98,7 @@ else:
             features = pd.DataFrame(data, index=[0])
             return features
 
-        df = user_input_features()
+            df2 = user_input_features()
             # Main Panel
 
     # Print specified input parameters
@@ -108,7 +108,7 @@ else:
 
         # Build Regression Model
         model = RandomForestRegressor()
-        model.fit(X, Y)
+        model.fit(X, y)
         # Apply Model to Make Prediction
         prediction = model.predict(df)
 
