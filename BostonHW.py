@@ -13,13 +13,13 @@ from sklearn import datasets
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 
-df = pd.read_csv(r"C:\Users\LocalAdmin\OneDrive\Documents\GitHub\dat-07-26\Homework\Unit3\data\housing.csv")
+df = pd.read_csv(r"https://raw.githubusercontent.com/DSML1909/BostonHWNew/main/housing.csv")
 
 section = st.sidebar.radio('Application Section', ['Data Explorer', 
                                                    'Model Explorer'])
 if section == 'Data Explorer':
     st.title('Exploratory Data Analysis')
-    st.write(df.head())
+    st.write(df)
     
     #generating a heatmap to show correlation
     correlation_matrix1 = df.corr().round(2)
