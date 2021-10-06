@@ -98,7 +98,7 @@ else:
             features = pd.DataFrame(data, index=[0])
             return features
 
-            df2 = user_input_features()
+            df = user_input_features()
             # Main Panel
 
     # Print specified input parameters
@@ -110,7 +110,7 @@ else:
         model = RandomForestRegressor()
         model.fit(X, y)
         # Apply Model to Make Prediction
-        prediction = model.predict(df2)
+        prediction = model.predict(df)
 
         st.header('Prediction of PRICE')
         st.write(prediction)
