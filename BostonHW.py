@@ -13,16 +13,16 @@ from sklearn import datasets
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 
-df1 = pd.read_csv(r"https://raw.githubusercontent.com/DSML1909/BostonHWNew/main/housing.csv")
+df = pd.read_csv(r"https://raw.githubusercontent.com/DSML1909/BostonHWNew/main/housing.csv")
 
 section = st.sidebar.radio('Application Section', ['Data Explorer', 
                                                    'Model Explorer'])
 if section == 'Data Explorer':
     st.title('Exploratory Data Analysis')
-    st.write(df1)
+    st.write(df)
     
     #generating a heatmap to show correlation
-    correlation_matrix1 = df1.corr().round(2)
+    correlation_matrix1 = df.corr().round(2)
     # annot = True to print the values inside the square
     sns.heatmap(data=correlation_matrix1, annot=True)
     
@@ -33,7 +33,7 @@ if section == 'Data Explorer':
     chart_type = st.sidebar.selectbox('Choose Your chart type', ['Table', 'Line','Bar','Strip'])
     @st.cache
     def create_grouping(x_axis, y_axis):
-        grouping = df1.groupby(x_axis)[y_axis].mean()
+        grouping = df.groupby(x_axis)[y_axis].mean()
         return grouping
     
     grouping = create_grouping(x_axis, y_axis)
@@ -50,7 +50,7 @@ if section == 'Data Explorer':
         # make a table
         st.write(grouping)
     else:
-        st.plotly_chart(px.strip(df1[[x_axis, y_axis]], x=x_axis, y=y_axis))
+        st.plotly_chart(px.strip(df[[x_axis, y_axis]], x=x_axis, y=y_axis))
 
 else:
         st.write("""
@@ -58,16 +58,16 @@ else:
         This app predicts the **Boston House Price**!
         """)
         st.write('---')
-
+        
         # Loads the Boston House Price Dataset
         boston = datasets.load_boston()
         X = pd.DataFrame(boston.data, columns=boston.feature_names)
-        y = pd.DataFrame(boston.target, columns=["MEDV"])
-
+        Y = pd.DataFrame(boston.target, columns=["MEDV"])
+        
         # Sidebar
         # Header of Specify Input Parameters
         st.sidebar.header('Specify Input Parameters')
-
+        
         def user_input_features():
             CRIM = st.sidebar.slider('CRIM', X.CRIM.min(), X.CRIM.max(), X.CRIM.mean())
             ZN = st.sidebar.slider('ZN', X.ZN.min(), X.ZN.max(), X.ZN.mean())
@@ -97,21 +97,22 @@ else:
                     'LSTAT': LSTAT}
             features = pd.DataFrame(data, index=[0])
             return features
-
-            df = user_input_features()
-            # Main Panel
-
-    # Print specified input parameters
+        
+        df = user_input_features()
+        
+        # Main Panel
+        
+        # Print specified input parameters
         st.header('Specified Input parameters')
         st.write(df)
         st.write('---')
-
+        
         # Build Regression Model
         model = RandomForestRegressor()
-        model.fit(X, y)
+        model.fit(X, Y)
         # Apply Model to Make Prediction
         prediction = model.predict(df)
-
-        st.header('Prediction of PRICE')
+        
+        st.header('Prediction of MEDV')
         st.write(prediction)
         st.write('---')
