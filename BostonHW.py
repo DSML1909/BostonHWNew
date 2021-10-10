@@ -116,6 +116,6 @@ else:
     # Apply Model to Make Prediction
     prediction = model.predict(df)
     
-    st.header('Prediction of Median House Price Value (MEDV)')
+    st.header('Prediction of Median House Price Value (PRICE)')
     st.write(prediction)
     st.write('---')
